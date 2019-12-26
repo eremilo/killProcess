@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NLog;
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -9,6 +11,7 @@ namespace KillProcess
 {
     class Program
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         static void Main(string[] args)
         {
             string processName;
@@ -32,7 +35,6 @@ namespace KillProcess
             Console.WriteLine("Мониторим процесс " + processName);
             while (true)
             {
-                Process[] process2 = Process.GetProcesses();
                 foreach (Process process in Process.GetProcesses())
                 {
                     if (String.Compare(process.ProcessName, processName, true) == 0 && (DateTime.Now - process.StartTime).Seconds > lifeTimeProcess)
@@ -41,6 +43,7 @@ namespace KillProcess
                         {
                             process.Kill();
                             Console.WriteLine("Процесс " + processName + " работал более чем " + lifeTimeProcess + " мин и был завершен");
+                            logger.Debug("Процесс " + processName + " работал более чем " + lifeTimeProcess + " мин и был завершен");
                         }
                         catch (Exception)
                         {
