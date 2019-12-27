@@ -37,7 +37,7 @@ namespace KillProcess
             {
                 foreach (Process process in Process.GetProcesses())
                 {
-                    if (String.Compare(process.ProcessName, processName, true) == 0 && (DateTime.Now - process.StartTime).Seconds > lifeTimeProcess)
+                    if (String.Compare(process.ProcessName, processName, true) == 0 && (DateTime.Now - process.StartTime).Minutes > lifeTimeProcess)
                     {
                         try
                         {
